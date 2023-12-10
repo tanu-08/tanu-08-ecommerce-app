@@ -1,0 +1,43 @@
+{
+    "products": [
+      {
+        "id": 1,
+        "name": "Laptop",
+        "price": 999.99,
+        "rating":4.5,
+        "description": "High-performance laptop for work and gaming",
+        "image":"https://images.pexels.com/photos/205421/pexels-photo-205421.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+      },
+      {
+        "id": 2,
+        "name": "Smartphone",
+        "price": 499.99,
+        "rating":4,
+        "description": "Latest model with advanced features",
+        "image":"https://images.pexels.com/photos/205421/pexels-photo-205421.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+
+      },
+      {
+        "id": 3,
+        "name": "Headphones",
+        "price": 129.99,
+        "rating":4,
+        "description": "Noise-canceling wireless headphones",
+        "image":"https://images.pexels.com/photos/205421/pexels-photo-205421.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+
+      },
+      {
+        "id": 4,
+        "name": "Smartwatch",
+        "price": 199.99,
+        "rating":4.2,
+        "description": "Fitness and health tracking smartwatch",
+        "image":"https://images.pexels.com/photos/205421/pexels-photo-205421.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+
+      }
+    ],
+    "cart": [],
+    "users": [],
+    "orders": []
+  }
+  
