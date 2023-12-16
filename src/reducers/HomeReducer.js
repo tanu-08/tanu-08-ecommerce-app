@@ -1,4 +1,5 @@
 import {
+  SET_INI_STATE,
     ADD_PRODUCT,
     EDIT_PRODUCT,
     DELETE_PRODUCT,
@@ -11,6 +12,8 @@ import {
   
   const productReducer = (state = initialState, action) => {
     switch (action.type) {
+      case SET_INI_STATE:
+        return action.payload;
       case ADD_PRODUCT:
         return {
           ...state,

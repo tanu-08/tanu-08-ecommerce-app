@@ -1,7 +1,7 @@
 // Home.js
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addProduct } from "../../actions/ProductActions";
+import { addProduct, setInitialState } from "../../actions/ProductActions";
 import ProductCard from "./ProductCard";
 import "../home/Home.css";
 
@@ -16,11 +16,8 @@ const Home = () => {
       fetch("https://my-json-server.typicode.com/tanu-08/tanu-08-ecommerce-app/products")
         .then((response) => response.json())
         .then((data) => {
-          // Dispatch an action to add products to the Redux store
-          console.log(data);
-          data.forEach((product) => {
-            dispatch(addProduct(product));
-          });
+          // Dispatch an action to set the initial state
+          dispatch(setInitialState({ products: data }));
           setLoading(false); // Set loading to false once data is fetched
         })
         .catch((error) => {
@@ -30,7 +27,7 @@ const Home = () => {
     } else {
       setLoading(false); // Set loading to false if products are already in the store
     }
-  }, []); // Use an empty dependency array
+  }, [dispatch, products]); // Include 'dispatch' as a dependency
 
   if (loading) {
     return <p>Loading...</p>;
