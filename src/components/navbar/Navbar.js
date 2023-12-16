@@ -16,13 +16,13 @@ const Navbar = () => {
 
         <div className="navbar-links">
           <Link to="/" className="navbar-link">
-          <HomeRounded color='white'/>
+          <HomeRounded color='black'/>
           </Link>
           <Link to="/products" className="navbar-link">
-          <LocalMallRounded color='white'/>
+          <LocalMallRounded color='black'/>
           </Link>
           <Link to="/cart" className="navbar-link">
-          <ShoppingCart color='white'/>
+          <ShoppingCart color='black'/>
           </Link>
         </div>
       </div>

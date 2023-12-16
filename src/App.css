@@ -1,9 +1,8 @@
 .App {
   text-align: center;
+  background-image: url(./images/6221097.jpg);
 }
-*{
-  background-color: black;
-}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
