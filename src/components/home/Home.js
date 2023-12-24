@@ -33,7 +33,7 @@ const Home = () => {
   }, [notification]);
 
   const fetchProducts = () => {
-    fetch("https://my-json-server.typicode.com/tanu-08/tanu-08-ecommerce-app/products")
+    fetch("http://localhost:3001/products")
       .then((response) => response.json())
       .then((data) => {
         dispatch(setInitialState({ products: data }));
@@ -47,7 +47,7 @@ const Home = () => {
 
   const handleDelete = async (productId) => {
     try {
-      await fetch(`https://my-json-server.typicode.com/tanu-08/tanu-08-ecommerce-app/products/${productId}`, {
+      await fetch(`http://localhost:3001/products/${productId}`, {
         method: "DELETE",
       })
         .then((response) => response.json())
@@ -91,7 +91,7 @@ const Home = () => {
 
   const handleAddProduct = async (newProductData) => {
     try {
-      const response = await fetch("https://my-json-server.typicode.com/tanu-08/tanu-08-ecommerce-app/products", {
+      const response = await fetch("http://localhost:3001/products", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
