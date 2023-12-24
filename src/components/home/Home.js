@@ -1,10 +1,9 @@
-// Home.js
-
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setInitialState, deleteProduct, sortProducts, addProduct } from "../../actions/ProductActions";
 import ProductCard from "./ProductCard";
 import "../home/Home.css";
+import { BrowserRouter as Routes, Route,Link } from "react-router-dom";
 import Notification from "../../Notification";
 import AddProductComponent from "./AddNewProduct";
 
@@ -120,39 +119,41 @@ const Home = () => {
   }
 
   return (
-    <div className="home">
-       {showAddProductModal && (
-        <div className="modal-overlay">
-          <AddProductComponent onProductAdded={handleAddProduct} />
+      <div className="home">
+         {showAddProductModal && (
+          <div className="modal-overlay">
+            <AddProductComponent onProductAdded={handleAddProduct} />
+          </div>
+        )}
+        {notification != null ? (
+          <div className="notification">
+            {notification && (
+              <Notification type={notification.type} message={notification.message} onClose={closeNotification} />
+            )}
+          </div>
+        ) : null}
+        <div className="add-sort">
+        <button className="add-new-product" onClick={toggleAddProductModal}>
+            Add New Product
+          </button>
+          <button className="sort-button" onClick={handleSort}>
+            {buttonText}
+          </button>
         </div>
-      )}
-      {notification != null ? (
-        <div className="notification">
-          {notification && (
-            <Notification type={notification.type} message={notification.message} onClose={closeNotification} />
-          )}
+        <div className="products">
+          {products.map((product) => (
+             <Link to={`/product/${product.id}`}>
+             <ProductCard
+               product={product}
+               onDelete={handleDelete}
+               onEditSuccess={handleEditSuccess}
+               onEditError={handleEditError}
+             />
+           </Link>
+          ))}
         </div>
-      ) : null}
-      <div className="add-sort">
-      <button className="add-new-product" onClick={toggleAddProductModal}>
-          Add New Product
-        </button>
-        <button className="sort-button" onClick={handleSort}>
-          {buttonText}
-        </button>
       </div>
-      <div className="products">
-        {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            onDelete={handleDelete}
-            onEditSuccess={handleEditSuccess}
-            onEditError={handleEditError}
-          />
-        ))}
-      </div>
-    </div>
+   
   );
 };
 

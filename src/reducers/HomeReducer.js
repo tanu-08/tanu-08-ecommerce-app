@@ -4,6 +4,8 @@ import {
     EDIT_PRODUCT,
     DELETE_PRODUCT,
     SORT_PRODUCTS,
+    ADD_TO_CART,
+  REMOVE_FROM_CART,
   } from '../actions/ProductActions';
   
   const initialState = {
@@ -42,6 +44,24 @@ import {
           ...state,
           products: [...state.products].sort((a, b) => a.price - b.price),
         };
+        case ADD_TO_CART:
+          return {
+            ...state,
+            products: state.products.map((product) =>
+              product.id === action.payload
+                ? { ...product, inCart: true } 
+                : product
+            ),
+          };
+        case REMOVE_FROM_CART:
+          return {
+            ...state,
+            products: state.products.map((product) =>
+              product.id === action.payload
+                ? { ...product, inCart: false } 
+                : product
+            ),
+          };
       default:
         return state;
     }

@@ -80,3 +80,7 @@
   .product-card button.cancel-button {
     background-color: #dc3545;
   }
+  .product-card .product-link {
+    text-decoration: none;
+    color: #333;
+  }

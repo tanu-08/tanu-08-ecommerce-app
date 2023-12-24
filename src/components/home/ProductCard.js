@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "./ProductCard.css";
 import { useDispatch } from "react-redux";
 import { editProduct } from "../../actions/ProductActions";
-import { toast } from 'react-toastify';
+import { Link } from "react-router-dom";
 
 const ProductCard = ({ product, onDelete,onEditSuccess, onEditError }) => {
   const dispatch = useDispatch();
@@ -67,12 +67,16 @@ const ProductCard = ({ product, onDelete,onEditSuccess, onEditError }) => {
   };
 
   return (
+    <Link to={`/product/${id}`} className="product-link">
     <div className="product-card">
       <div className="product-image">
         <img src={image} alt={name} />
       </div>
       {isEditing ? (
         <>
+         
+            <p className="product-name">{name}</p>
+          
           <input
             type="text"
             value={editedName}
@@ -116,6 +120,7 @@ const ProductCard = ({ product, onDelete,onEditSuccess, onEditError }) => {
         )}
       </div>
     </div>
+    </Link>
   );
 };
 

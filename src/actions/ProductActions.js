@@ -4,6 +4,8 @@ export const ADD_PRODUCT = "Add Product";
 export const EDIT_PRODUCT = "Edit Product";
 export const DELETE_PRODUCT = "Delete Product";
 export const SORT_PRODUCTS = "Sort Products";
+export const ADD_TO_CART = "Add To Cart";
+export const REMOVE_FROM_CART = "Remove From Cart";
 
 // actions.js
 
@@ -33,4 +35,14 @@ export const deleteProduct = (productId) => ({
 export const sortProducts = (sortBy) => ({
   type: SORT_PRODUCTS,
   payload: sortBy,
+});
+
+export const addToCart = (productId) => ({
+  type: ADD_TO_CART,
+  payload: productId,
+});
+
+export const removeFromCart = (productId) => ({
+  type: REMOVE_FROM_CART,
+  payload: productId,
 });

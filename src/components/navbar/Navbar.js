@@ -4,6 +4,7 @@ import Home from '../home/Home';
 import Product from '../products/Product';
 import Cart from '../cart/Cart';
 import "../navbar/Navbar.css";
+import ProductDetails from '../home/ProductDetails';
 import { HomeRounded,LocalMallRounded,ShoppingCart } from '@mui/icons-material';
 
 const Navbar = () => {
@@ -30,6 +31,7 @@ const Navbar = () => {
       <div className="content">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/product/:productId" element={<ProductDetails />} />
           <Route path="/products" element={<Product />} />
           <Route path="/cart" element={<Cart />} />
         </Routes>
