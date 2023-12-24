@@ -15,6 +15,7 @@ const Navbar = () => {
         </span>
 
         <div className="navbar-links">
+        
           <Link to="/" className="navbar-link">
           <HomeRounded color='black'/>
           </Link>

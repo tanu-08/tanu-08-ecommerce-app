@@ -1,7 +1,28 @@
 /* Home.css */
-.home {
+.products {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     padding: 20px;
+  }
+  .add-sort{
+    display: flex;
+    justify-content: space-around;
+  }
+  button {
+    background-color: #4caf50; 
+    border: none; 
+    color: white; 
+    padding: 10px 15px; 
+    text-align: center;
+    margin-top: 1.5rem;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px; 
+  }
+  
+  .sort-button:hover {
+    background-color: #45a049; /* Darker green on hover */
   }

@@ -1,6 +1,7 @@
 // App.js
 import React from 'react';
 import { Provider } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 import  Store  from './reducers/ProductsStore'; // Make sure to provide the correct path
 
 import './App.css';
@@ -12,7 +13,9 @@ function App() {
       <div className="App">
         <Navbar />
       </div>
+
     </Provider>
+    
   );
 }
 

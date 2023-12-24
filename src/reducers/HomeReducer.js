@@ -38,10 +38,9 @@ import {
           ),
         };
       case SORT_PRODUCTS:
-    
         return {
           ...state,
-          products: [...state.products].sort(/* sorting logic */),
+          products: [...state.products].sort((a, b) => a.price - b.price),
         };
       default:
         return state;
