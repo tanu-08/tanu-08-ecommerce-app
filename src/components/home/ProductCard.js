@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { editProduct } from "../../actions/ProductActions";
 import { Link } from "react-router-dom";
 
-const ProductCard = ({ product, onDelete,onEditSuccess, onEditError }) => {
+const ProductCard = ({ product, onDelete,onEditSuccess, onEditError , onAddCart , cartItems}) => {
   const dispatch = useDispatch();
 
   const { id, name, description, price, rating, image } = product;
@@ -19,6 +19,9 @@ const ProductCard = ({ product, onDelete,onEditSuccess, onEditError }) => {
   const handleEdit = () => {
     setIsEditing(true);
   };
+  const handleAddCartClick = () => {
+    onAddCart(product);
+  };
 
   const handleSave = async () => {
     const updatedProduct = {
@@ -30,7 +33,7 @@ const ProductCard = ({ product, onDelete,onEditSuccess, onEditError }) => {
     };
     try {
       const response = await fetch(
-        `https://my-json-server.typicode.com/tanu-08/tanu-08-ecommerce-app/products/${id}`,
+        `http://localhost:3001/products/${id}`,
         {
           method: "PUT",
           headers: {
@@ -67,11 +70,12 @@ const ProductCard = ({ product, onDelete,onEditSuccess, onEditError }) => {
   };
 
   return (
-    <Link to={`/product/${id}`} className="product-link">
     <div className="product-card">
+      <Link to={`/product/${id}`} className="product-link">
       <div className="product-image">
         <img src={image} alt={name} />
       </div>
+      </Link>
       {isEditing ? (
         <>
          
@@ -118,9 +122,11 @@ const ProductCard = ({ product, onDelete,onEditSuccess, onEditError }) => {
             <button onClick={handleDelete}>Delete</button>
           </>
         )}
+        <button onClick={handleAddCartClick}>
+          {cartItems.some((item) => item.product.id === product.id) ? "Remove from Cart" : "Add to Cart"}
+        </button>
       </div>
     </div>
-    </Link>
   );
 };
 

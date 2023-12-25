@@ -2,21 +2,17 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./ProductDetails.css";
+import { v4 as uuidv4 } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../../actions/ProductActions";
 
-// ... (other imports remain the same)
-
-const ProductDetails = () => {
+const ProductDetails = ({updateCartCount}) => {
     const { productId } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
-  
-    // Fetch cart items from Redux state
-    // Provide a default empty array as the initial state
-    const cartItems = useSelector((state) => state.cart || []);
+    const [cartItems, setCartItems] = useState([]);
   
     useEffect(() => {
       const fetchProductDetails = async () => {
@@ -33,51 +29,64 @@ const ProductDetails = () => {
           setLoading(false);
         }
       };
-  
       fetchProductDetails();
-    }, [productId]);
-  
+    }, []);
+
     useEffect(() => {
-      // Check if the product is in the cart and update the 'inCart' property
-      if (product) {
-        setProduct((prevProduct) => ({
-          ...prevProduct,
-          inCart: cartItems.some((item) => item.id === prevProduct.id),
-        }));
-      }
-    }, [cartItems, product]);
+    const fetchCartItems = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/cart");
+        if (!response.ok) {
+          throw new Error("Error fetching cart items");
+        }
+        const data = await response.json();
+        setCartItems(data);
+  
+      } catch (error) {
+        console.error("Error fetching cart items:", error);
+      } 
+    };
+    fetchCartItems();
+  }, []);
   
     const handleBack = () => {
       navigate(-1);
     };
   
     const handleToggleCart = async () => {
-        try {
-          if (product && product.inCart) {
-            // Remove from cart API call
-            await fetch(`http://localhost:3001/cart/${productId}`, {
-              method: "DELETE",
-            });
-            dispatch(removeFromCart(product.id));
-          } else if (product) {
-            // Add to cart API call with the entire product object
-            await fetch(`http://localhost:3001/cart`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ product }),
-            });
-            dispatch(addToCart(product.id));
+      try {
+        if (product && cartItems.some((item) => item.product.id === product.id) ) {
+          for (let i = 0; i < cartItems.length; i++) {
+            if (cartItems[i].product.id === product.id) {
+              console.log(cartItems[i].id)
+              await fetch(`http://localhost:3001/cart/${cartItems[i].id}`, {
+                method: "DELETE",
+              });
+              break;
+            }
           }
-        } catch (error) {
-          console.error("Error updating cart:", error);
+          dispatch(removeFromCart(product.id));
+          setCartItems(cartItems.filter((item) => item.product.id !== product.id));
+          updateCartCount()
+        } else if (product) {
+          const newItemId = uuidv4();
+        await fetch(`http://localhost:3001/cart`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ product,id: newItemId }),
+          });
+          dispatch(addToCart(product.id));
+          cartItems.push({"product":product,"id":newItemId})
+          setCartItems([...cartItems, {"product":product,"id":newItemId}]);
+          updateCartCount()
         }
-      };
-      
-      
+      } catch (error) {
+        console.error("Error updating cart:", error);
+      }
+    };
   
-    // Conditional rendering to check if product is null
     if (loading || product === null) {
       return <p>Loading...</p>;
     }
@@ -90,7 +99,7 @@ const ProductDetails = () => {
         <p>Price: ${product.price.toFixed(2)}</p>
         <p>Rating: {product.rating}</p>
         <button onClick={handleToggleCart}>
-          {product.inCart ? "Remove from Cart" : "Add to Cart"}
+          {cartItems.some((item) => item.product.id === product.id) ? "Remove from Cart" : "Add to Cart"}
         </button>
         <button onClick={handleBack}>Back to Home</button>
       </div>
@@ -98,4 +107,3 @@ const ProductDetails = () => {
   };
   
   export default ProductDetails;
-  

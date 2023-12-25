@@ -1,13 +1,12 @@
 {
   "products": [
     {
-      "id": 1,
       "name": "Laptop",
-      "price": 89999,
-      "rating": 4.5,
       "description": "High-performanc-e laptop for work and gaming",
-      "inCart": false,
-      "image": "https://images.pexels.com/photos/205421/pexels-photo-205421.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+      "price": 89999,
+      "rating": "4.9",
+      "image": "https://images.pexels.com/photos/205421/pexels-photo-205421.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+      "id": 1
     },
     {
       "id": 2,
@@ -55,15 +54,6 @@
       "id": 6
     },
     {
-      "name": "Dinning Table",
-      "price": 300,
-      "rating": 3,
-      "description": "Oregano (Bergera Table + Lisse chair) 4-seater rectangular shape dining set\n",
-      "inCart": false,
-      "image": "https://wakefitdev.gumlet.io/img/dining/sets/1201/1.jpg?w=1600",
-      "id": 7
-    },
-    {
       "name": "Shoes",
       "price": 198,
       "rating": 4.8,
@@ -73,26 +63,86 @@
       "id": 8
     },
     {
-      "name": "Women Top",
-      "price": 50,
-      "rating": 4,
-      "description": "RARE Women's Regular fit Top",
-      "inCart": true,
-      "image": "https://m.media-amazon.com/images/W/MEDIAX_792452-T2/images/I/91WQpi-mCVL._SY879_.jpg",
+      "name": "Men T-Shirt",
+      "price": 29,
+      "rating": 3,
+      "description": "Men Typography Round Neck Cotton Blend Blue T-Shirt\n",
+      "image": "https://rukminim2.flixcart.com/image/832/832/xif0q/t-shirt/j/r/1/xxl-t592-tblm-eyebogler-original-imagh3fzvve2x4gr.jpeg?q=70",
       "id": 9
+    },
+    {
+      "name": "Men Denim Jacket",
+      "price": 49,
+      "rating": 4.9,
+      "description": "Men Washed Denim Jacket",
+      "image": "https://rukminim2.flixcart.com/image/832/832/xif0q/jacket/e/6/l/l-no-v1-jkt-denim-rfd-blast-light-grey-verticals-original-imagtq67aduu2pzx.jpeg?q=70",
+      "id": 10
+    },
+    {
+      "name": "Casual Jacket",
+      "price": 100,
+      "rating": 4,
+      "description": "TRIPR ORIGINALS \nMen Striped Casual Jacket",
+      "image": "https://rukminim2.flixcart.com/image/832/832/xif0q/jacket/z/h/x/xl-1-no-tblrdhdfuljacket-k19-tripr-original-imaghdvb8wrsktrf.jpeg?q=70",
+      "id": 11
+    },
+    {
+      "name": "Women Saree",
+      "price": 88,
+      "rating": 4,
+      "description": "OMICRON FAB \nEmbellished Bollywood Georgette Saree  (Dark Green)",
+      "image": "https://rukminim2.flixcart.com/image/832/832/xif0q/sari/e/j/k/free-latest-georgette-saree-omicron-fab-unstitched-original-imagp6qptqnvb62g.jpeg?q=70",
+      "id": 12
+    },
+    {
+      "name": "Heels",
+      "price": 50,
+      "rating": 4.5,
+      "description": "Tokyo Talkies \nWomen Olive Heels Sandal",
+      "image": "https://rukminim2.flixcart.com/image/832/832/xif0q/sandal/2/p/o/3-tokyo-wv-001451-tokyo-talkies-olive-original-imaghsdxpmgm6pwr.jpeg?q=70",
+      "id": 13
+    },
+    {
+      "name": "Sandles",
+      "price": 150,
+      "rating": 5,
+      "description": "Zionk \nWomen Multicolor Heels Sandal",
+      "image": "https://rukminim2.flixcart.com/image/832/832/kp8ntzk0/sandal/f/0/h/12-latkandapka002198-zionk-navy-original-imag3guztppkwehd.jpeg?q=70",
+      "id": 14
+    },
+    {
+      "name": "handbag",
+      "price": 49,
+      "rating": 4,
+      "description": "Ladies Handbag",
+      "image": "hgjkl;",
+      "id": 15
     }
   ],
   "cart": [
     {
-      "name": "Women Top",
-      "price": 50,
-      "rating": 4,
-      "description": "RARE Women's Regular fit Top",
-      "inCart": true,
-      "image": "https://m.media-amazon.com/images/W/MEDIAX_792452-T2/images/I/91WQpi-mCVL._SY879_.jpg",
-      "id": 9
+      "product": {
+        "name": "Shoes",
+        "price": 198,
+        "rating": 4.8,
+        "description": "Red Tape Women's Walking Shoes",
+        "image": "https://m.media-amazon.com/images/W/MEDIAX_792452-T2/images/I/51CG6qku6UL._SY695_.jpg",
+        "inCart": false,
+        "id": 8
+      },
+      "id": "96ef2d79-581c-432b-b8cb-c26fc7bc43f1"
+    },
+    {
+      "product": {
+        "id": 3,
+        "name": "Headphones",
+        "price": 999,
+        "rating": 4,
+        "description": "Noise-canceling wireless headphones",
+        "inCart": false,
+        "image": "https://m.media-amazon.com/images/W/MEDIAX_792452-T2/images/I/41JACWT-wWL._SX569_.jpg"
+      },
+      "id": "575553c2-5f7f-46c6-9e3b-539d208d7f29"
     }
-  ],
-  "users": [],
-  "orders": []
+  ]
 }

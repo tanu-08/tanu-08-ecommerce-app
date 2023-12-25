@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setInitialState, deleteProduct, sortProducts, addProduct } from "../../actions/ProductActions";
+import { setInitialState, deleteProduct, sortProducts, addProduct,addToCart,removeFromCart } from "../../actions/ProductActions";
 import ProductCard from "./ProductCard";
 import "../home/Home.css";
-import { BrowserRouter as Routes, Route,Link } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 import Notification from "../../Notification";
 import AddProductComponent from "./AddNewProduct";
 
-const Home = () => {
+//json-server --watch db.json --port 3001
+
+const Home = ({updateCartCount}) => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products);
   const [loading, setLoading] = useState(true);
@@ -15,6 +17,7 @@ const Home = () => {
   const [sortAsc, setSortAsc] = useState(true);
   const [buttonText, setButtonText] = useState("Sort By Price");
   const [showAddProductModal, setShowAddProductModal] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
     if (products.length === 0) {
@@ -24,6 +27,7 @@ const Home = () => {
     }
   }, [dispatch, products]);
 
+  //notification alert
   useEffect(() => {
     const timer = setTimeout(() => {
       setNotification(null);
@@ -31,6 +35,7 @@ const Home = () => {
     return () => clearTimeout(timer);
   }, [notification]);
 
+  //fetch all products
   const fetchProducts = () => {
     fetch("http://localhost:3001/products")
       .then((response) => response.json())
@@ -44,6 +49,25 @@ const Home = () => {
       });
   };
 
+  //fetch cart items
+  useEffect(() => {
+    const fetchCartItems = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/cart");
+        if (!response.ok) {
+          throw new Error("Error fetching cart items");
+        }
+        const data = await response.json();
+        setCartItems(data);
+  
+      } catch (error) {
+        console.error("Error fetching cart items:", error);
+      } 
+    };
+    fetchCartItems();
+  }, []);
+
+//delete product
   const handleDelete = async (productId) => {
     try {
       await fetch(`http://localhost:3001/products/${productId}`, {
@@ -65,6 +89,7 @@ const Home = () => {
     setNotification(null);
   };
 
+  //edit product
   const handleEditSuccess = () => {
     setNotification({ type: 'success', message: 'Product updated successfully!' });
   };
@@ -73,6 +98,7 @@ const Home = () => {
     setNotification({ type: 'error', message: 'Error updating product!' });
   };
 
+  //sort products according to price
   const handleSort = () => {
     if (sortAsc) {
       dispatch(sortProducts("asc"));
@@ -84,10 +110,12 @@ const Home = () => {
       setButtonText("Sort By Price");
     }
   };
+
   const toggleAddProductModal = () => {
     setShowAddProductModal(!showAddProductModal);
   };
 
+  //add product to cart
   const handleAddProduct = async (newProductData) => {
     try {
       const response = await fetch("http://localhost:3001/products", {
@@ -109,8 +137,38 @@ const Home = () => {
     }
   };
 
-  const handleProductAdded = () => {
-    
+  const handleToggleCart = async (product) => {
+    try {
+      if (product && cartItems.some((item) => item.product.id === product.id) ) {
+        for (let i = 0; i < cartItems.length; i++) {
+          if (cartItems[i].product.id === product.id) {
+            console.log(cartItems[i].id)
+            await fetch(`http://localhost:3001/cart/${cartItems[i].id}`, {
+              method: "DELETE",
+            });
+            break;
+          }
+        }
+        dispatch(removeFromCart(product.id));
+        setCartItems(cartItems.filter((item) => item.product.id !== product.id));
+        updateCartCount()
+      } else if (product) {
+        const newItemId = uuidv4();
+      await fetch(`http://localhost:3001/cart`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ product,id: newItemId }),
+        });
+        dispatch(addToCart(product.id));
+        cartItems.push({"product":product,"id":newItemId})
+        setCartItems([...cartItems, {"product":product,"id":newItemId}]);
+        updateCartCount()
+      }
+    } catch (error) {
+      console.error("Error updating cart:", error);
+    }
   };
 
 
@@ -142,14 +200,16 @@ const Home = () => {
         </div>
         <div className="products">
           {products.map((product) => (
-             <Link to={`/product/${product.id}`}>
+            //  <Link to={`/product/${product.id}`}>
              <ProductCard
                product={product}
                onDelete={handleDelete}
                onEditSuccess={handleEditSuccess}
                onEditError={handleEditError}
+               onAddCart={handleToggleCart}
+               cartItems={cartItems}
              />
-           </Link>
+           
           ))}
         </div>
       </div>

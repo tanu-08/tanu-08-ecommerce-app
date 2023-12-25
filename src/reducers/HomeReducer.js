@@ -47,10 +47,12 @@ import {
         case ADD_TO_CART:
           return {
             ...state,
-            products: state.products.map((product) =>
+            products: state.products.map ((product) =>
+             
               product.id === action.payload
                 ? { ...product, inCart: true } 
                 : product
+               
             ),
           };
         case REMOVE_FROM_CART:
