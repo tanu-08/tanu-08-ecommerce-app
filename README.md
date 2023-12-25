@@ -1,5 +1,6 @@
 # Getting Started with Create React App
-
+First of all run "json-server --watch db.json --port 3001"  command to run server otherwise application will not run
+after this run application.
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -8,6 +9,7 @@ In the project directory, you can run:
 
 ### `npm start`
 
+First of all run "json-server --watch db.json --port 3001" command to run server otherwise application will not run after this run application. 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
